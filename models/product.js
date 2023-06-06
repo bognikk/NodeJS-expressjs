@@ -15,7 +15,7 @@ class Product {
 		const db = getDb();
 		let dbOp;
 		if (this._id) {
-			// update the product
+			// Update the product
 			dbOp = db
 				.collection("products")
 				.updateOne({ _id: this._id }, { $set: this });
@@ -51,6 +51,7 @@ class Product {
 		return db
 			.collection("products")
 			.find({ _id: new mongodb.ObjectId(prodId) })
+			.next()
 			.then((product) => {
 				console.log(product);
 				return product;
