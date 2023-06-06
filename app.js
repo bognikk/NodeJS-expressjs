@@ -2,9 +2,9 @@ const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const errorController = require("./controllers/error");
-const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
 
 const app = express();
@@ -34,7 +34,18 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
-	app.listen(8080, () => console.log("App listening on port 8080"));
-	// app.listen(8080);
-});
+// mongoConnect(() => {
+// 	// app.listen(8080);
+// 	app.listen(8080, () => console.log("App listening on port 8080"));
+// });
+
+mongoose
+	.connect(
+		"mongodb+srv://nikola:PASSWORD@cluster0.kf6ie2q.mongodb.net/shop?retryWrites=true&w=majority"
+	)
+	.then((result) => {
+		app.listen(8080, () => console.log("App listening on port 8080"));
+	})
+	.catch((err) => {
+		console.log(err);
+	});
