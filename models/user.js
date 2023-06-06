@@ -104,21 +104,13 @@ class User {
 			});
 	}
 
-	// getOrders() {
-	// 	const db = getDb();
-	// 	return db
-	// 		.collection("orders")
-	// 		.insertOne(this.cart)
-	// 		.then((result) => {
-	// 			this.cart = { items: [] };
-	// 			return db
-	// 				.collection("users")
-	// 				.updateOne(
-	// 					{ _id: new ObjectId(this._id) },
-	// 					{ $set: { cart: { items: [] } } }
-	// 				);
-	// 		});
-	// }
+	getOrders() {
+		const db = getDb();
+		return db
+			.collection("orders")
+			.find({ "user._id": new ObjectId(this._id) })
+			.toArray();
+	}
 
 	static findById(userId) {
 		const db = getDb();
