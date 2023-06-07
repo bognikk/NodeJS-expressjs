@@ -1,4 +1,7 @@
 const path = require("path");
+require("dotenv").config();
+const PORT = process.env.PORT || 8080;
+const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -41,10 +44,10 @@ app.use(errorController.get404);
 
 mongoose
 	.connect(
-		"mongodb+srv://nikola:PASSWORD@cluster0.kf6ie2q.mongodb.net/shop?retryWrites=true&w=majority"
+		`mongodb+srv://nikola:${DATABASE_PASSWORD}@cluster0.kf6ie2q.mongodb.net/shop?retryWrites=true&w=majority`
 	)
 	.then((result) => {
-		app.listen(8080, () => console.log("App listening on port 8080"));
+		app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
 	})
 	.catch((err) => {
 		console.log(err);
