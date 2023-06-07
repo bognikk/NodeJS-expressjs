@@ -85,7 +85,7 @@ exports.postOrder = async (req, res, next) => {
 			const products = user.cart.items.map((i) => {
 				return {
 					quantity: i.quantity,
-					product: i.productId,
+					product: { ...i.productId._doc },
 				};
 			});
 			const order = new Order({
