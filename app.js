@@ -61,18 +61,6 @@ app.use(errorController.get404);
 mongoose
 	.connect(MONGODB_URI)
 	.then((result) => {
-		User.findOne().then((user) => {
-			if (!user) {
-				const user = new User({
-					name: "Nikola",
-					email: "nikola@test.com",
-					cart: {
-						items: [],
-					},
-				});
-				user.save();
-			}
-		});
 		app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
 	})
 	.catch((err) => {
