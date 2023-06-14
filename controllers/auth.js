@@ -46,6 +46,7 @@ exports.getSignup = (req, res, next) => {
 			oldPassword: "",
 			confirmPassword: "",
 		},
+		validationErrors: [],
 	});
 };
 
@@ -95,6 +96,7 @@ exports.postLogin = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
+
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors.array());
@@ -107,6 +109,7 @@ exports.postSignup = (req, res, next) => {
 				password: password,
 				confirmPassword: req.body.confirmPassword,
 			},
+			validationErrors: errors.array(),
 		});
 	}
 
